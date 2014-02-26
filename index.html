@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<title>Github Globo.com</title>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="style.css" media="all" />
+
+	</head>
+	<body>
+	
+		<div class="container">
+			<div class="repositorios">
+				<h1>projetos</h1>
+
+				<ul id="lista_repositorios">
+				</ul>
+				<a href="#" onclick="repositorios.exibePaginaAnterior();" id="repositorio_pagina_anterior">anterior</a>   
+				<a href="#" onclick="repositorios.exibeProximaPagina();" id="repositorio_pagina_seguinte">próximos</a>
+				
+			</div>
+			<div class="commits">
+				<div class="dados_repositorio">
+					<div class="stars">
+						stars <div id="stars" style="display: inline;"></div>
+					</div>
+					<div class="forks">
+						forks <div id="forks" style="display: inline;"></div>
+					</div>
+					<div class="contribs">
+						contribs <div id="contribs" style="display: inline;"></div>
+					</div>					
+				</div>
+				<ul id="lista_commits">
+				</ul>
+				<a href="#" onclick="proximaPagina();" class="botao" id="proximaPagina" style="display: none;">carregar mais</a>
+			</div>
+		</div>
+	</body>
+  
+	<script src="jquery-1.11.0.min.js"></script>
+	<script src="repositorios.js"></script>
+	<script src="commits.js"></script>
+
+	<script>			
+		
+		var repositorios = new Repositorios();
+		var commits;
+		var pagina = 1;
+		
+		var capturaRepositorios = function() {
+
+			var jqxhr = $.get( "https://api.github.com/users/globocom/repos?page=" + pagina + "&per_page=100", function() {
+
+				}).done(function(data) {
+					if (data.length > 0) {
+						adicionaRepositorios(data);		
+						pagina++;
+						capturaRepositorios();
+					} else {
+						exibeResultado();
+					}
+				}).fail(function() {
+				}).always(function() {
+			});			
+		}
+		
+		var exibeResultado = function() {
+			
+			repositorios.exibePagina(1);		
+		}
+						
+		var adicionaRepositorios = function(dados) {
+			for (var id in dados) {
+				repositorio = dados[id];
+				repositorios.add(repositorio);
+			}
+		}
+		
+		var proximaPagina = function() {
+			
+			commits.proximaPagina();
+		}
+		
+		var carregaCommits = function(id) {
+
+			repositorio = repositorios.listaRepositorio[id];
+			repositorios.selecionado = id;
+
+			$('#stars').html(repositorio.stargazers_count);
+			$('#forks').html(repositorio.forks);
+			$('#contribs').html(repositorio.watchers);
+
+			$('#lista_repositorios').find('li').removeClass('selecionado');
+			$('#lista_repositorios').find('#repositorio-' + id).addClass('selecionado');
+
+			commits = new Commits(repositorio.name);
+			window.history.pushState('', 'Github Globo.com - ' + repositorio.name, '/' + repositorio.name);
+		}
+
+		capturaRepositorios();
+	</script>  
+</html>

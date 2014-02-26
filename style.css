@@ -1,0 +1,29 @@
+* {text-decoration: none; list-style: none; padding: 0; margin: 0; font-family: sans-serif; }
+body { background-color: #FFFFFF; font-size: 14px; background-image:url('background.jpg'); background-position: center; background-repeat: repeat-y; }
+a { color: #A6971B; outline: none; }
+h1 { font-size: 32px; font-weight: 100;  margin-bottom: 10px; }
+p { margin-bottom: 10px; }
+
+.container { width: 800px; margin: 0 auto; }
+.repositorios { width: 180px; float: left; padding: 20px 15px; background-color: #4d78e8; text-align: right; color: #FFFFFF; }
+.repositorios a { color: #FFFFFF; }
+.commits { width: 480px; padding: 20px 10px; margin-left: 210px; }
+.dados_repositorio { font-size: 18px; color: #AAA; height: 50px; }
+.stars { float: left; width: 160px; }
+.forks { float: left; width: 160px; text-align: center; }
+.contribs { float: left; width: 160px; text-align: right; }
+
+#lista_repositorios { margin: 20px 0 40px 0; }
+#lista_repositorios li { margin: 10px -19px 10px 0px; padding-right: 20px; }
+#lista_repositorios .selecionado { background-image:url('marcador.jpg'); background-position: center right; background-repeat: no-repeat; }
+
+#lista_commits {  }
+#lista_commits li { border: 1px solid #666666; height: 40px; width: auto; color: #666666; padding: 10px; margin-bottom: 10px; }  
+#lista_commits li img { float: left; background-color: #666666; }
+#lista_commits li span { float: right; font-size: 10px; }  
+#lista_commits li b { display: block; margin: 0 80px 0 50px; }  
+#lista_commits li small { display: block; margin: 0 80px 0 50px; }  
+
+#repositorio_pagina_seguinte { margin-left: 10px; }
+
+.botao { background-color: #999; width: 480px; padding: 10px 0; color: #FFF; display: block; text-align: center; font-size: 12px; }
